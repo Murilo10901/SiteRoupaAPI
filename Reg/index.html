@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DarkStyle - Moda Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="dark-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Dark<span>Style</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="streetwear.html">Streetwear</a></li>
+                    <li><a href="#" class="cart-toggle"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Coleção Outono/Inverno 2023</h2>
+            <p>Estilo e conforto para todas as ocasiões</p>
+            <a href="streetwear.html" class="btn">Ver Coleção</a>
+        </section>
+
+        <section class="products">
+            <h2>Nossas Camisas</h2>
+            <div class="product-grid">
+                <!-- Produto 1 -->
+                <div class="product-card">
+                    <img src="images/camisa1.jpg" alt="Camisa Básica Preta">
+                    <h3>Camisa Básica Preta</h3>
+                    <p class="price">R$ 89,90</p>
+                    <button class="add-to-cart" data-id="1" data-name="Camisa Básica Preta" data-price="89.90">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Produto 2 -->
+                <div class="product-card">
+                    <img src="images/camisa2.jpg" alt="Camisa Oversized Branca">
+                    <h3>Camisa Oversized Branca</h3>
+                    <p class="price">R$ 99,90</p>
+                    <button class="add-to-cart" data-id="2" data-name="Camisa Oversized Branca" data-price="99.90">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Produto 3 -->
+                <div class="product-card">
+                    <img src="images/camisa3.jpg" alt="Camisa Listrada">
+                    <h3>Camisa Listrada</h3>
+                    <p class="price">R$ 109,90</p>
+                    <button class="add-to-cart" data-id="3" data-name="Camisa Listrada" data-price="109.90">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Produto 4 -->
+                <div class="product-card">
+                    <img src="images/camisa4.jpg" alt="Camisa Botões">
+                    <h3>Camisa com Botões</h3>
+                    <p class="price">R$ 119,90</p>
+                    <button class="add-to-cart" data-id="4" data-name="Camisa com Botões" data-price="119.90">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Produto 5 -->
+                <div class="product-card">
+                    <img src="images/camisa5.jpg" alt="Camisa Social">
+                    <h3>Camisa Social</h3>
+                    <p class="price">R$ 129,90</p>
+                    <button class="add-to-cart" data-id="5" data-name="Camisa Social" data-price="129.90">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Produto 6 -->
+                <div class="product-card">
+                    <img src="images/camisa6.jpg" alt="Camisa Estampada">
+                    <h3>Camisa Estampada</h3>
+                    <p class="price">R$ 139,90</p>
+                    <button class="add-to-cart" data-id="6" data-name="Camisa Estampada" data-price="139.90">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Carrinho de Compras (Modal) -->
+    <div class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div class="cart-items">
+                <!-- Itens serão adicionados dinamicamente via JS -->
+            </div>
+            <div class="cart-total">
+                <strong>Total: R$ <span class="total-price">0.00</span></strong>
+            </div>
+            <button class="checkout-btn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <footer class="dark-footer">
+        <div class="container">
+            <p>&copy; 2023 DarkStyle. Todos os direitos reservados.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

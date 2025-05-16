@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streetwear Collection | DarkStyle</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="dark-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Dark<span>Style</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="streetwear.html">Streetwear</a></li>
+                    <li><a href="#" class="cart-toggle"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="streetwear-hero">
+            <h2>Streetwear Collection</h2>
+            <p>Estilo urbano com atitude</p>
+        </section>
+
+        <section class="streetwear-gallery">
+            <div class="gallery-item">
+                <img src="images/street1.jpg" alt="Streetwear Look 1">
+                <div class="gallery-overlay">
+                    <h3>Urban Oversized</h3>
+                    <p>Conjunto completo R$ 299,90</p>
+                    <button class="add-to-cart" data-id="101" data-name="Conjunto Urban Oversized" data-price="299.90">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/street2.jpg" alt="Streetwear Look 2">
+                <div class="gallery-overlay">
+                    <h3>Skate Style</h3>
+                    <p>Jaqueta + Calça R$ 349,90</p>
+                    <button class="add-to-cart" data-id="102" data-name="Conjunto Skate Style" data-price="349.90">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="images/street3.jpg" alt="Streetwear Look 3">
+                <div class="gallery-overlay">
+                    <h3>Minimal Black</h3>
+                    <p>Look Completo R$ 279,90</p>
+                    <button class="add-to-cart" data-id="103" data-name="Conjunto Minimal Black" data-price="279.90">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="streetwear-features">
+            <div class="feature">
+                <i class="fas fa-tshirt"></i>
+                <h3>Qualidade Premium</h3>
+                <p>Materiais selecionados para durabilidade e conforto</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Design Exclusivo</h3>
+                <p>Estampas e cortes únicos criados por nossos designers</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-truck"></i>
+                <h3>Entrega Rápida</h3>
+                <p>Receba seu pedido em até 3 dias úteis</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Carrinho de Compras (Modal) -->
+    <div class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <div class="cart-items">
+                <!-- Itens serão adicionados dinamicamente via JS -->
+            </div>
+            <div class="cart-total">
+                <strong>Total: R$ <span class="total-price">0.00</span></strong>
+            </div>
+            <button class="checkout-btn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <footer class="dark-footer">
+        <div class="container">
+            <p>&copy; 2023 DarkStyle. Todos os direitos reservados.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
