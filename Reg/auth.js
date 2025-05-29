@@ -1,59 +1,60 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Validação do formulário de login
-    const loginForm = document.querySelector('.auth-form');
-    if (loginForm && window.location.pathname.includes('login.html')) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (!email || !password) {
-                alert('Por favor, preencha todos os campos');
-                return;
-            }
-            
-            // Simulação de login bem-sucedido
-            alert('Login realizado com sucesso!');
-            window.location.href = 'index.html';
-        });
-    }
-    
-    // Validação do formulário de cadastro
-    const registerForm = document.querySelector('.auth-form');
-    if (registerForm && window.location.pathname.includes('register.html')) {
-        registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.auth-form');
+
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        // Verifica se é cadastro ou login
+        if (window.location.pathname.includes('register')) {
+            const name = document.getElementById('name').value.trim();
             const confirmPassword = document.getElementById('confirm-password').value;
-            const terms = document.getElementById('terms').checked;
-            
-            if (!name || !email || !password || !confirmPassword) {
-                alert('Por favor, preencha todos os campos');
-                return;
-            }
-            
+
             if (password !== confirmPassword) {
-                alert('As senhas não coincidem');
-                return;
+                return alert('As senhas não coincidem!');
             }
-            
-            if (password.length < 8) {
-                alert('A senha deve ter no mínimo 8 caracteres');
-                return;
+
+            try {
+                const res = await fetch('http://localhost:3000/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    alert(data.message || 'Cadastro realizado com sucesso!');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(data.error || 'Erro ao cadastrar usuário.');
+                }
+            } catch (err) {
+                alert('Erro na conexão com o servidor.');
             }
-            
-            if (!terms) {
-                alert('Você deve aceitar os termos de serviço');
-                return;
+
+        } else {
+            // Login
+            try {
+                const res = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    alert(data.message || 'Login realizado com sucesso!');
+                    window.location.href = 'index.html'; // redirecionar para sua dashboard
+                } else {
+                    alert(data.error || 'E-mail ou senha inválidos.');
+                }
+            } catch (err) {
+                alert('Erro na conexão com o servidor.');
             }
-            
-            // Simulação de cadastro bem-sucedido
-            alert('Cadastro realizado com sucesso! Faça login para continuar.');
-            window.location.href = 'login.html';
-        });
-    }
+        }
+    });
 });
