@@ -1,14 +1,20 @@
 import express from 'express';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
-const express = require('express');
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
 const port = 3000;
+const prisma = new PrismaClient();
 
-// Para servir arquivos estáticos (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/register.html'));
 });
@@ -20,13 +26,6 @@ app.get('/login', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-
-
-const app = express();
-const prisma = new PrismaClient();
-
-app.use(cors());
-app.use(express.json());
 
 // REGISTRO
 app.post('/register', async (req, res) => {
@@ -66,6 +65,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });
