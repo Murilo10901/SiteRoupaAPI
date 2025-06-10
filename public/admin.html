@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel de Usuários</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Painel</h2>
+      <nav>
+        <ul>
+          <li><a href="/register">Criar Usuário</a></li>
+          <li><a href="/admin">Ver Usuários</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <h1>Usuários Cadastrados</h1>
+      <table id="usersTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+  </div>
+  <!-- Navbar: já existente, só adiciona os botões para as novas abas -->
+<nav>
+  <button id="nav-list" class="active">Listar Usuários</button>
+  <button id="nav-edit">Editar Usuários</button>
+  <button id="nav-delete">Excluir Usuários</button>
+</nav>
+
+<main>
+  <!-- Aba listar usuários - sua tabela já existente -->
+  <section id="section-list">
+    <!-- Conteúdo já existente -->
+  </section>
+
+  <!-- Aba editar usuários -->
+  <section id="section-edit" style="display:none;">
+    <h2>Editar Usuários</h2>
+    <table>
+      <thead>
+        <tr><th>Nome</th><th>Email</th><th>Ações</th></tr>
+      </thead>
+      <tbody id="edit-user-table-body"></tbody>
+    </table>
+  </section>
+
+  <!-- Aba excluir usuários -->
+  <section id="section-delete" style="display:none;">
+    <h2>Excluir Usuários</h2>
+    <button id="delete-selected-btn" style="background-color:red; color:white; padding:8px; margin-bottom:10px; border:none; cursor:pointer;">
+      Excluir selecionados
+    </button>
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="select-all-delete" /></th>
+          <th>Nome</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody id="delete-user-table-body"></tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+  // Função para alternar abas e atualizar tabela
+  const navListBtn = document.getElementById('nav-list');
+  const navEditBtn = document.getElementById('nav-edit');
+  const navDeleteBtn = document.getElementById('nav-delete');
+
+  const sectionList = document.getElementById('section-list');
+  const sectionEdit = document.getElementById('section-edit');
+  const sectionDelete = document.getElementById('section-delete');
+
+  function clearActiveNav() {
+    navListBtn.classList.remove('active');
+    navEditBtn.classList.remove('active');
+    navDeleteBtn.classList.remove('active');
+  }
+
+  navListBtn.onclick = () => {
+    clearActiveNav();
+    navListBtn.classList.add('active');
+    sectionList.style.display = 'block';
+    sectionEdit.style.display = 'none';
+    sectionDelete.style.display = 'none';
+    loadUsersList(); // função sua já existente para listar
+  };
+
+  navEditBtn.onclick = () => {
+    clearActiveNav();
+    navEditBtn.classList.add('active');
+    sectionList.style.display = 'none';
+    sectionEdit.style.display = 'block';
+    sectionDelete.style.display = 'none';
+    loadUsersEdit();
+  };
+
+  navDeleteBtn.onclick = () => {
+    clearActiveNav();
+    navDeleteBtn.classList.add('active');
+    sectionList.style.display = 'none';
+    sectionEdit.style.display = 'none';
+    sectionDelete.style.display = 'block';
+    loadUsersDelete();
+  };
+
+  // Carregar usuários para editar
+  async function loadUsersEdit() {
+    const res = await fetch('/users'); // rota que retorna todos os usuários
+    const users = await res.json();
+
+    const tbody = document.getElementById('edit-user-table-body');
+    tbody.innerHTML = '';
+
+    users.forEach(user => {
+      const tr = document.createElement('tr');
+
+      // Dados simples
+      tr.innerHTML = `
+        <td><span class="name-text">${user.name}</span><input class="name-input" type="text" value="${user.name}" style="display:none;" /></td>
+        <td><span class="email-text">${user.email}</span><input class="email-input" type="email" value="${user.email}" style="display:none;" /></td>
+        <td>
+          <button class="edit-btn" style="background:blue; color:white; border:none; padding:5px 10px; cursor:pointer;">Editar</button>
+          <button class="save-btn" style="display:none; background:green; color:white; border:none; padding:5px 10px; cursor:pointer;">Salvar</button>
+          <button class="cancel-btn" style="display:none; background:gray; color:white; border:none; padding:5px 10px; cursor:pointer;">Cancelar</button>
+        </td>
+      `;
+
+      // Botões ação
+      const editBtn = tr.querySelector('.edit-btn');
+      const saveBtn = tr.querySelector('.save-btn');
+      const cancelBtn = tr.querySelector('.cancel-btn');
+      const nameText = tr.querySelector('.name-text');
+      const emailText = tr.querySelector('.email-text');
+      const nameInput = tr.querySelector('.name-input');
+      const emailInput = tr.querySelector('.email-input');
+
+      editBtn.onclick = () => {
+        nameText.style.display = 'none';
+        emailText.style.display = 'none';
+        nameInput.style.display = 'inline-block';
+        emailInput.style.display = 'inline-block';
+
+        editBtn.style.display = 'none';
+        saveBtn.style.display = 'inline-block';
+        cancelBtn.style.display = 'inline-block';
+      };
+
+      cancelBtn.onclick = () => {
+        nameText.style.display = 'inline';
+        emailText.style.display = 'inline';
+        nameInput.style.display = 'none';
+        emailInput.style.display = 'none';
+
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+
+        // Reset input values para valores antigos
+        nameInput.value = nameText.textContent;
+        emailInput.value = emailText.textContent;
+      };
+
+      saveBtn.onclick = async () => {
+        const newName = nameInput.value.trim();
+        const newEmail = emailInput.value.trim();
+
+        if (!newName || !newEmail) {
+          alert('Nome e email são obrigatórios.');
+          return;
+        }
+
+        // Chama o backend para atualizar
+        const response = await fetch(`/users/${user.id}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ name: newName, email: newEmail }),
+        });
+
+        if (response.ok) {
+          nameText.textContent = newName;
+          emailText.textContent = newEmail;
+
+          cancelBtn.onclick();
+          alert('Usuário atualizado com sucesso!');
+        } else {
+          alert('Erro ao atualizar usuário');
+        }
+      };
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Carregar usuários para deletar
+  async function loadUsersDelete() {
+    const res = await fetch('/users');
+    const users = await res.json();
+
+    const tbody = document.getElementById('delete-user-table-body');
+    tbody.innerHTML = '';
+
+    users.forEach(user => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="checkbox" class="delete-checkbox" data-id="${user.id}" /></td>
+        <td>${user.name}</td>
+        <td>${user.email}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Select all checkbox lógica
+  document.getElementById('select-all-delete').onclick = function() {
+    const checkboxes = document.querySelectorAll('.delete-checkbox');
+    checkboxes.forEach(cb => cb.checked = this.checked);
+  };
+
+  // Botão excluir selecionados
+  document.getElementById('delete-selected-btn').onclick = async () => {
+    const checkedBoxes = document.querySelectorAll('.delete-checkbox:checked');
+    if (checkedBoxes.length === 0) {
+      alert('Selecione ao menos um usuário para excluir.');
+      return;
+    }
+
+    if (!confirm(`Tem certeza que deseja excluir ${checkedBoxes.length} usuário(s)?`)) return;
+
+    for (const cb of checkedBoxes) {
+      const id = cb.getAttribute('data-id');
+      await fetch(`/users/${id}`, { method: 'DELETE' });
+    }
+
+    alert('Usuários excluídos!');
+    loadUsersDelete();
+  };
+
+  // Inicializa com a lista (ou ajuste pra sua tela inicial)
+  navListBtn.click();
+
+</script>
+
+
+  <script src="user.js"></script>
+</body>
+</html>

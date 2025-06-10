@@ -68,3 +68,81 @@ app.post('/login', async (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+
+// LISTAR TODOS OS USUÁRIOS
+app.get('/users', async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch {
+    res.status(500).json({ error: 'Erro ao buscar usuários.' });
+  }
+});
+
+// ATUALIZAR USUÁRIO
+app.put('/users/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, email } = req.body;
+
+  try {
+    await prisma.user.update({
+      where: { id },
+      data: { name, email }
+    });
+    res.json({ message: 'Usuário atualizado com sucesso!' });
+  } catch {
+    res.status(500).json({ error: 'Erro ao atualizar usuário.' });
+  }
+});
+
+// DELETAR USUÁRIO
+app.delete('/users/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.user.delete({ where: { id } });
+    res.json({ message: 'Usuário deletado com sucesso!' });
+  } catch {
+    res.status(500).json({ error: 'Erro ao deletar usuário.' });
+  }
+});
+
+// PÁGINA ADMIN
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/admin.html'));
+});
+
+// GET /users - retorna todos os usuários (para popular tabela)
+app.get('/users', async (req, res) => {
+  const users = await prisma.user.findMany();
+  res.json(users);
+});
+
+// PUT /users/:id - atualiza usuário
+app.put('/users/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, email } = req.body;
+
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: { name, email }
+    });
+    res.json(updatedUser);
+  } catch {
+    res.status(500).json({ error: 'Erro ao atualizar usuário' });
+  }
+});
+
+// DELETE /users/:id - deleta usuário
+app.delete('/users/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.user.delete({ where: { id } });
+    res.json({ message: 'Usuário deletado' });
+  } catch {
+    res.status(500).json({ error: 'Erro ao deletar usuário' });
+  }
+});
