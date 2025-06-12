@@ -21,3 +21,6 @@ export default api
 //http://localhost:4000/funcionario.html → página cadastro funcionário
 
 //http://localhost:4000/admin-funcionario.html → página admin funcionário (se tiver)
+
+
+//http://localhost:5000/admin-roupas.html → página cadastro funcionário

@@ -27,3 +27,11 @@ model Funcionario {
   cargo    String
   password String
 }
+
+model Roupa {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  peca    String
+  preco   Float
+  estoque Int
+  cor     String
+}
