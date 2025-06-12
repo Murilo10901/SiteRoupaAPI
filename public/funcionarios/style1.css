@@ -1,0 +1,155 @@
+
+.auth-page {
+    background-color: #121212;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.auth-box {
+    max-width: 547px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    border-radius: 50px;
+    padding: 89px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.auth-box .logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-box .logo h1 {
+    color: #fff;
+    font-size: 2.2rem;
+}
+
+.auth-box .logo span {
+    color: #6c63ff;
+}
+
+.auth-form h2 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.auth-form p {
+    color: #b0b0b0;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #b0b0b0;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #2d2d2d;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #6c63ff;
+}
+
+.input-group small {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+    font-size: 0.8rem;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 5px;
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    text-align: right;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: #6c63ff;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.checkbox-group input {
+    width: auto;
+    margin-right: 10px;
+}
+
+.checkbox-group label {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+}
+
+.checkbox-group a {
+    color: #6c63ff;
+    text-decoration: none;
+}
+
+.btn-auth {
+    width: 106%;
+    padding: 14px;
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.btn-auth:hover {
+    background-color: #5a52d3;
+}
+
+.auth-footer {
+    margin-top: 25px;
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: #6c63ff;
+    text-decoration: none;
+}
+
+
+@media (max-width: 480px) {
+    .auth-box {
+        padding: 30px 20px;
+    }
+}

@@ -19,3 +19,11 @@ model User {
   email    String @unique
   password String
 }
+
+model Funcionario {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String   @unique
+  cargo    String
+  password String
+}
